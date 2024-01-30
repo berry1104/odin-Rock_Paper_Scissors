@@ -68,18 +68,37 @@ buttons.forEach((button) => {
         console.log('button clicked');
 
         let computerSelection = getComputerChoice();
-        //console.log('computerSelection: ' + computerSelection);
+        let computerSelectionText = 'computerSelection: ' + computerSelection;
 
         let playerSelection = button.textContent;
-        console.log('playerSelection: ' + playerSelection);
+        let playerSelectionText = 'playerSelection: ' + playerSelection;
 
         let result = playRound(playerSelection, computerSelection);
+        let resultText;
         if (result === 1) {
-            let result = 'You Win! ' + playerSelection + ' beats ' + computerSelection;
+            resultText = 'You Win! ' + playerSelection + ' beats ' + computerSelection;
         } else {
-            let result = 'You Lose! ' + computerSelection + ' beats ' + playerSelection;
+            resultText = 'You Lose! ' + computerSelection + ' beats ' + playerSelection;
         }
+        console.log(resultText);
 
-        //
+        //Add a div for displaying results
+        const div = document.createElement('div');
+        
+        const p1 = document.createElement('p');
+        p1.textContent = playerSelectionText;
+
+        const p2 = document.createElement('p');
+        p2.textContent = computerSelectionText;
+
+        const h3 = document.createElement('h3');
+        h3.textContent = resultText;
+
+        div.appendChild(p1);
+        div.appendChild(p2);
+        div.appendChild(h3);
+
+        document.body.appendChild(div);
+
     });
 });
