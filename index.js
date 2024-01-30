@@ -2,13 +2,13 @@ function getComputerChoice() {
     const randomNumber = Math.floor(Math.random() * 3);
     switch (randomNumber) {
         case 0:
-            console.log('return rock');
+            console.log('Computer return rock');
             return 'rock';
         case 1:
-            console.log('return paper');
+            console.log('Computer return paper');
             return 'paper';
         default:
-            console.log('return scissors');
+            console.log('Computer return scissors');
             return 'scissors';
     }
 }
@@ -29,26 +29,26 @@ function playRound(playerSelection, computerSelection) {
         } else if (playerSelection === 'rock') {
             if (computerSelection === 'paper') {
                 result = 0;
-                console.log('You lose! Paper beats Rock');
+                ;
             } else {
                 result = 1;
-                console.log('You win! Rock beats Scissors');
+                
             }
         } else if (playerSelection === 'paper') {
             if (computerSelection === 'scissors') {
                 result = 0;
-                console.log('You lose! Scissors beats Paper');
+                
             } else {
                 result = 1;
-                console.log('You win! Paper beats Rock');
             }
+                
         } else if (playerSelection === 'scissors') {
             if (computerSelection === 'rock') {
                 result = 0;
-                console.log('You lose! Rock beats Scissors');
+                
             } else {
                 result = 1;
-                console.log('You win! Scissors beats Paper');
+                
             }
         }
     }
@@ -60,24 +60,26 @@ function playRound(playerSelection, computerSelection) {
 
 
 
-function game() {
-    let playerScore = 0;
-    for (let i = 0; i < 5; i++) {
-        console.log('Round ' + (i + 1));
-        let playerSelection = prompt('Choose rock, paper or scissors');
+
+const buttons = document.querySelectorAll('button');
+
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        console.log('button clicked');
+
         let computerSelection = getComputerChoice();
-        playerScore += playRound(playerSelection, computerSelection);
+        //console.log('computerSelection: ' + computerSelection);
 
-    }
+        let playerSelection = button.textContent;
+        console.log('playerSelection: ' + playerSelection);
 
-    console.log('Your score: ' + playerScore);
-    if (playerScore > 2) {
-        console.log('You win!');
-    } else {
-        console.log('You lose!');
-    }
+        let result = playRound(playerSelection, computerSelection);
+        if (result === 1) {
+            let result = 'You Win! ' + playerSelection + ' beats ' + computerSelection;
+        } else {
+            let result = 'You Lose! ' + computerSelection + ' beats ' + playerSelection;
+        }
 
-}
-
-
-game();
+        //
+    });
+});
