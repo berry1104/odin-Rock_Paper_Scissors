@@ -62,10 +62,23 @@ function playRound(playerSelection, computerSelection) {
 
 
 const buttons = document.querySelectorAll('button');
+let num = 0;
+let totalScore = 0;
 
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
         console.log('button clicked');
+        if (num === 0) {
+            console.log('Game start');
+            // clear the div
+            const divs = document.querySelectorAll('div');
+            divs.forEach((div) => {
+            document.body.removeChild(div);
+        });
+        }
+        
+        num++;
+        console.log('Round ' + num); 
 
         let computerSelection = getComputerChoice();
         let computerSelectionText = 'computerSelection: ' + computerSelection;
@@ -74,6 +87,7 @@ buttons.forEach((button) => {
         let playerSelectionText = 'playerSelection: ' + playerSelection;
 
         let result = playRound(playerSelection, computerSelection);
+        totalScore += result;
         let resultText;
         if (result === 1) {
             resultText = 'You Win! ' + playerSelection + ' beats ' + computerSelection;
@@ -84,6 +98,7 @@ buttons.forEach((button) => {
 
         //Add a div for displaying results
         const div = document.createElement('div');
+        
         
         const p1 = document.createElement('p');
         p1.textContent = playerSelectionText;
@@ -100,5 +115,26 @@ buttons.forEach((button) => {
 
         document.body.appendChild(div);
 
+
+        // when end round 5, display total score, ,reset the game, and clear the div
+        if (num === 5) {
+            // display total score and final result(win or lose)
+            const div_1 = document.createElement('div');
+            const score = document.createElement('h3');
+            const result = document.createElement('h1');
+            score.textContent = 'Total Score: ' + totalScore;
+            div_1.appendChild(score);
+            if (totalScore > 2) {
+                result.textContent = 'You Win!';
+                
+            } else {
+                result.textContent = 'You Lose!';
+            }
+            div_1.appendChild(result);
+            document.body.appendChild(div_1);
+            // reset the game
+            num = 0;
+            totalScore = 0;
+        }
     });
 });
